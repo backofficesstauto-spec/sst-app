@@ -1,0 +1,32 @@
+<h2>Scan</h2>
+
+<div id="reader"></div>
+<div id="actions"></div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="app.js"></script>
+
+<script>
+let role=localStorage.getItem("role");
+let html="";
+
+if(role==="qc"){
+html=`
+<button onclick="startScan('pass')">✅ QC ผ่าน</button>
+<button onclick="startScan('reject')">❌ Reject</button>`;
+}
+else if(role==="ship"){
+html=`
+<button onclick="startScan('received')">📦 รับสินค้า</button>
+<button onclick="startScan('cancel')">❌ ยกเลิก</button>`;
+}
+else if(role==="account"){
+html=`
+<button onclick="startScan('done')">💰 รับบิล</button>`;
+}
+else{
+html=`<button onclick="startScan()">📷 Scan</button>`;
+}
+
+actions.innerHTML=html;
+</script>

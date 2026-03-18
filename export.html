@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h2>Export Excel</h2>
+
+<button onclick="download()">Download</button>
+
+<script>
+
+function download(){
+
+window.open(
+"https://docs.google.com/spreadsheets/d/"+SpreadsheetApp.getActiveSpreadsheet().getId()+"/export?format=xlsx"
+)
+
+}
+
+</script>
+
+</body>
+</html>
