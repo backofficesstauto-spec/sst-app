@@ -2,9 +2,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_ID",
+  apiKey: "ใส่ของคุณ",
+  authDomain: "ใส่ของคุณ",
+  projectId: "ใส่ของคุณ"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -12,16 +12,14 @@ const db = getFirestore(app);
 
 // LOGIN
 window.login=function(){
-let user=username.value;
-let role=roleSelect.value;
-localStorage.setItem("user",user);
-localStorage.setItem("role",role);
-window.location="home.html";
+localStorage.setItem("user",username.value);
+localStorage.setItem("role",roleSelect.value);
+location="home.html";
 }
 
 window.logout=function(){
 localStorage.clear();
-window.location="index.html";
+location="index.html";
 }
 
 // FIRESTORE
@@ -42,37 +40,34 @@ let user=localStorage.getItem("user");
 let data=await getBill(code);
 let last=data[data.length-1];
 
-// SALES
 if(role==="sales"){
 if(data.length>0) return alert("มีบิลแล้ว");
 data.push({stage:"sales",user,time:new Date().toLocaleString()});
 }
 
-// PACK
 if(role==="pack"){
 if(!last||(last.stage!=="sales"&&last.result!=="reject")) return alert("ผิดขั้นตอน");
 data.push({stage:"pack",user,time:new Date().toLocaleString()});
 }
 
-// QC
 if(role==="qc"){
 if(!last||last.stage!=="pack") return alert("ต้องมาจาก pack");
+
 if(action==="reject"){
 data.push({stage:"qc",result:"reject",user,time:new Date().toLocaleString()});
 data.push({stage:"pack",user:"REWORK",time:new Date().toLocaleString()});
 }
+
 if(action==="pass"){
 data.push({stage:"qc",result:"pass",user,time:new Date().toLocaleString()});
 }
 }
 
-// SHIP
 if(role==="ship"){
 if(!last||last.stage!=="qc"||last.result!=="pass") return alert("ต้องผ่าน QC");
 data.push({stage:"ship",status:action,user,time:new Date().toLocaleString()});
 }
 
-// ACCOUNT
 if(role==="account"){
 if(!last||last.stage!=="ship"||last.status!=="received") return alert("ต้องส่งก่อน");
 data.push({stage:"account",status:"done",user,time:new Date().toLocaleString()});
@@ -81,19 +76,7 @@ data.push({stage:"account",status:"done",user,time:new Date().toLocaleString()})
 await saveBill(code,data);
 }
 
-// SCAN
-window.startScan=function(action){
-const html5QrCode = new Html5Qrcode("reader");
-Html5Qrcode.getCameras().then(devices=>{
-let cam=devices.find(d=>d.label.toLowerCase().includes("back"))||devices[0];
-html5QrCode.start(cam.id,{fps:10,qrbox:250},(txt)=>{
-updateBill(txt,action);
-window.location="timeline.html?bill="+txt;
-});
-});
-}
-
-// TIMELINE
+// TIMELINE realtime
 if(document.getElementById("timeline")){
 let bill=new URLSearchParams(location.search).get("bill");
 
@@ -110,7 +93,7 @@ timeline.innerHTML=html;
 });
 }
 
-// LIST
+// LIST realtime
 if(document.getElementById("list")){
 onSnapshot(collection(db,"bills"),(snap)=>{
 let html="";

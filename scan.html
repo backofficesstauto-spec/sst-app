@@ -8,24 +8,45 @@
 
 <script>
 let role=localStorage.getItem("role");
+
+function start(action){
+
+const html5QrCode = new Html5Qrcode("reader");
+
+Html5Qrcode.getCameras().then(devices => {
+
+let back = devices.find(d=>d.label.toLowerCase().includes("back")) || devices[0];
+
+html5QrCode.start(
+back.id,
+{fps:10,qrbox:250},
+(txt)=>{
+updateBill(txt,action);
+location="timeline.html?bill="+txt;
+}
+);
+
+});
+
+}
+
 let html="";
 
 if(role==="qc"){
 html=`
-<button onclick="startScan('pass')">✅ QC ผ่าน</button>
-<button onclick="startScan('reject')">❌ Reject</button>`;
+<button onclick="start('pass')">✅ ผ่าน</button>
+<button onclick="start('reject')">❌ Reject</button>`;
 }
 else if(role==="ship"){
 html=`
-<button onclick="startScan('received')">📦 รับสินค้า</button>
-<button onclick="startScan('cancel')">❌ ยกเลิก</button>`;
+<button onclick="start('received')">📦 รับสินค้า</button>
+<button onclick="start('cancel')">❌ ยกเลิก</button>`;
 }
 else if(role==="account"){
-html=`
-<button onclick="startScan('done')">💰 รับบิล</button>`;
+html=`<button onclick="start('done')">💰 รับบิล</button>`;
 }
 else{
-html=`<button onclick="startScan()">📷 เริ่มสแกน</button>`;
+html=`<button onclick="start()">📷 เริ่มสแกน</button>`;
 }
 
 actions.innerHTML=html;

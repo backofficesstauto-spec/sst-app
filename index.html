@@ -7,20 +7,20 @@
 </head>
 <body>
 
-<h1>SST App</h1>
+<h1 class="title">📦 SST App</h1>
 
-<a href="login.html" class="card big">🔑 Login</a>
+<a href="login.html" class="btn main">🔑 เข้าใช้งาน</a>
 
-<button id="installBtn" onclick="installApp()" style="display:none;">
+<button id="installBtn" onclick="installApp()" class="btn install" style="display:none;">
 📲 ติดตั้งแอพ
 </button>
 
+<script src="app.js" type="module"></script>
 <script>
 if('serviceWorker' in navigator){
 navigator.serviceWorker.register('service-worker.js');
 }
 </script>
 
-<script src="app.js" type="module"></script>
 </body>
 </html>
