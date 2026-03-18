@@ -1,10 +1,10 @@
-<h2>Scan</h2>
+<h2>📷 Scan</h2>
 
 <div id="reader"></div>
 <div id="actions"></div>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
-<script src="app.js"></script>
+<script src="app.js" type="module"></script>
 
 <script>
 let role=localStorage.getItem("role");
@@ -25,7 +25,7 @@ html=`
 <button onclick="startScan('done')">💰 รับบิล</button>`;
 }
 else{
-html=`<button onclick="startScan()">📷 Scan</button>`;
+html=`<button onclick="startScan()">📷 เริ่มสแกน</button>`;
 }
 
 actions.innerHTML=html;

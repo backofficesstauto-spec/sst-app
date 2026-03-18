@@ -3,12 +3,13 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1>SST App</h1>
 
-<a href="login.html">🔑 Login</a>
+<a href="login.html" class="card big">🔑 Login</a>
 
 <button id="installBtn" onclick="installApp()" style="display:none;">
 📲 ติดตั้งแอพ
@@ -19,7 +20,7 @@ if('serviceWorker' in navigator){
 navigator.serviceWorker.register('service-worker.js');
 }
 </script>
-<script src="app.js"></script>
 
+<script src="app.js" type="module"></script>
 </body>
 </html>

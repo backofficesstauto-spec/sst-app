@@ -1,8 +1,26 @@
-<h2>Menu</h2>
+<h2>📦 SST System</h2>
 
-<a href="scan.html">📷 Scan</a>
-<a href="list.html">📋 List</a>
+<div class="grid">
 
-<button onclick="logout()">🚪 Logout</button>
+<a href="scan.html" class="card big">📷 สแกนบิล</a>
 
-<script src="app.js"></script>
+<a href="list.html" class="card">📋 รายการบิล</a>
+<a href="dashboard.html" class="card">📊 Dashboard</a>
+
+<div class="card">
+<input id="search" placeholder="เลขบิล">
+<button onclick="go()">ค้นหา</button>
+</div>
+
+<a onclick="logout()" class="card red">🚪 Logout</a>
+
+</div>
+
+<script>
+function go(){
+let b=document.getElementById("search").value;
+window.location="timeline.html?bill="+b;
+}
+</script>
+
+<script src="app.js" type="module"></script>

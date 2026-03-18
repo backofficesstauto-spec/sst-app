@@ -1,33 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
+<h2>Login</h2>
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<h2>📦 SST BILL SYSTEM</h2>
-
-<input id="username" placeholder="ชื่อพนักงาน">
-
-<select id="role">
-
+<input id="username" placeholder="ชื่อ">
+<select id="roleSelect">
 <option value="sales">Sales</option>
 <option value="pack">Pack</option>
 <option value="qc">QC</option>
-<option value="ship">Shipping</option>
+<option value="ship">Ship</option>
 <option value="account">Account</option>
-
 </select>
 
-<input id="password" type="password" placeholder="รหัสผ่าน">
-
+<input id="password" type="password" placeholder="รหัส">
 <button onclick="login()">Login</button>
 
-<script src="app.js"></script>
-
-</body>
-</html>
+<script src="app.js" type="module"></script>
